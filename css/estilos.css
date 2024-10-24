@@ -1,0 +1,229 @@
+General
+*{
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    background-color: #F2F1F9;
+    font-family: Arial, sans-serif;
+    color: #000;
+}
+
+header {
+    text-align: center;
+    background-color: #78FF8A;
+    margin: 0;
+    padding: 32px;
+}
+
+.subtitle {
+    margin: 16px;
+    font-weight: bold;
+}
+
+.header_button {
+    padding: 4px 9px;
+    border-color: #aaa;
+    border-style: solid;
+    font-weight: bold;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+} 
+
+.header_button:hover{
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+.header_button:active{
+    background-color: #bbb;
+}
+
+
+
+#sectionIngresos {
+    background-color: #78FF8A;
+    margin: 20px;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 24px;
+    -webkit-border-radius: 24px;
+    -moz-border-radius: 24px;
+    -ms-border-radius: 24px;
+    -o-border-radius: 24px;
+}
+
+.inputContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+#sectionIngresos form {
+    background-color: #a4eba4;
+    margin: 10px;
+    width: 30%;
+    height: fit-content;
+    padding: 10px;
+    text-align: left;
+    padding: 20px 10px;
+    font-weight: bold;
+}
+
+#sectionIngresos form label {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#sectionIngresos form > input {
+    width: 95%;
+    height: 24px;
+    padding: 4px 8px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#sectionIngresos form textarea {
+    width: 95%;
+    resize: vertical;
+    height: 48px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.button {
+    background-color: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 9px;
+    cursor: pointer;
+    margin-top: 16px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    border-color: #4caf50 #409044 #409044 #4caf50; 
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #5ac55e;
+    border-color: #5ac55e #4caf50 #4caf50 #5ac55e; 
+}
+
+.button:active{
+    background-color: #409044;
+    border-color: #409044; 
+}
+
+#registrarArtistas {
+}
+
+#ingresarExposiciones textarea {
+    margin-bottom: 16px;
+}
+
+#comentariosDeVisitas textarea{
+    margin-bottom: 16px;
+}
+
+.smiley {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.calificacionList{
+    width: 100%;
+    display: inline-flex;
+    margin-top: 12px;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.calificacionList input {
+    display: none;
+}
+
+.calificacionList li {
+    margin: 5px;
+}
+
+.visitaGuiada {
+    display: inline-flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: center;
+}
+
+.visitaGuiada label {
+    margin: 0 !important;
+}
+
+.visitaGuiada input {
+    margin: 0 15px;
+}
+
+
+#sectionInfo {
+    display: none;
+    background-color: #78FF8A;
+    margin: 40px;
+    margin-top: 20px;
+    border-radius: 30px;
+}
+
+h2 {
+    text-align: left;
+    font-size: 20px;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+/* form {
+    background-color: #8FF39A;
+    margin: 10px;
+    width: 30%;
+    float: left;
+    padding: 10px;
+}
+
+h1 {
+    margin: 10px;
+}
+
+
+h2 {
+    text-align: left;
+    font-size: 20px;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+h3 {
+    text-align: left;
+}
+
+label, textarea {
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+} */
