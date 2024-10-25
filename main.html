@@ -16,6 +16,7 @@
             <h2>Ingresos</h2>
             
             <div class="inputContainer">
+             
                 <form id="registrarArtistas">
                     <h3>Registrar Artistas</h2>
 
@@ -44,6 +45,26 @@
                     <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea>
                 
                     <span>Elegir artista:</span><br>
+
+                    <div class="listBoxes">
+                        <select class="listBox" multiple>
+                          <option>Nombre 1</option>
+                          <option>Nombre 2</option>
+                          <option>Nombre 3</option>
+                        </select>
+                        
+                        <!-- <div> -->
+                            <button class="header_button" type="button">>></button>
+                            <button class="header_button" type="button"><<</button>
+                        <!-- </div> -->
+                        
+                        <select class="listBox" multiple>
+                          <option>Nombre 4</option>
+                          <option>Nombre 5</option>
+                        </select>
+                    </div>
+
+
                     <button class="button" type="button">Agregar Exposición</button>
                 </form>
 
@@ -87,6 +108,7 @@
 
                     <button class="button" type="button">Agregar Comentario</button>
                 </form>
+            
             </div>
         </section>
         
@@ -106,37 +128,40 @@
 
             <form>
                 <h2>Información de Comentarios</h2>
-                <label for="exposicionFiltro">Exposición:</label>
+
+                <label for="exposicionFiltro">Exposición:</label><br>
                 <select id="exposicionFiltro" name="exposicionFiltro">
                     <option value="todas">Todas</option>
-                </select><br><br>
+                </select>
+                    
                 <table>
                     <tr>
                         <th>Título</th>
                         <th>Más datos</th>
-                        <th>Nombre</th>
-                        <th>Comentario</th>
+                        <th class="borderRight">Nombre</th>
+                        <th class="comentarios">Comentario</th>
                         <th>Guiada</th>
-                        <th><button>Calificación creciente</button></th>
+                        <th class="borderRight"><button type="button" class="button">Calificación creciente</button></th>
                     </tr>
                     <tr>
                         <td>Título 1</td>
-                        <td><button>Ampliar</button></td>
-                        <td>Nombre ficticio 1</td>
-                        <td>Comentario ficticio 1</td>
+                        <td><button  type="button" class="button">Ampliar</button></td>
+                        <td class="borderRight">Nombre ficticio 1</td>
+                        <td class="comentarios">Comentario ficticio 1</td>
                         <td>NO</td>
-                        <td><img class="smiley" src="red.png" alt="rojo"></td>
+                        <td class="borderRight"><img class="smiley" src="img/red.jpg" alt="rojo"></td>
                     </tr>
                     <tr>
                         <td>Título 2</td>
-                        <td><button>Ampliar</button></td>
-                        <td>Nombre ficticio 2</td>
-                        <td>Comentario ficticio 2</td>
+                        <td><button  type="button" class="button">Ampliar</button></td>
+                        <td class="borderRight">Nombre ficticio 2</td>
+                        <td class="comentarios">Comentario ficticio 2</td>
                         <td>SÍ</td>
-                        <td><img class="smiley" src="green.png" alt="verde"></td>
+                        <td class="borderRight"><img class="smiley" src="img/green.jpg" alt="verde"></td>
                     </tr>
                 </table>
             </form>
         </section>
+
     </body>
 </html>
