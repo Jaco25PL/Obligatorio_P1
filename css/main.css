@@ -1,4 +1,3 @@
-General
 *{
     padding: 0;
     margin: 0;
@@ -161,9 +160,6 @@ header {
     border-color: #409044; 
 }
 
-#registrarArtistas {
-}
-
 #ingresarExposiciones textarea {
     margin-bottom: 16px;
 }
@@ -242,19 +238,30 @@ header {
 #sectionInfo table {
     width: 100%;
     margin: 8px 0;
-    /* border-collapse: collapse; */
     border-spacing: 0;
-    border-top: 5px double black;
-    border-bottom: 5px double black;
-    border-left: 4px solid black;
-    border-right: 4px solid black;
+    outline: 4px double #000;
+    outline-offset: -4px;
+    border-collapse: collapse;
+    /* outline-style: inset; */
+    /* outline: 4px  double  #000; */
+    /* border-top: 5px double black; */
+    /* border-bottom: 5px double black; */
+    /* border-left: 4px solid black; */
+    /* border-right: 4px solid black; */
 }
 
 #sectionInfo th, td {
+    /*outline: 4px solid #000;*/
     border-right: 4px solid black;
+    border-left: 4px solid black;
+
     padding: 16px 0;
     text-align: center;
     vertical-align: middle;
+    -webkit-border-radius: 4px solid black;
+    -moz-border-radius: 4px solid black;
+    -ms-border-radius: 4px solid black;
+    -o-border-radius: 4px solid black;
 }
 
 #sectionInfo td {
@@ -263,7 +270,7 @@ header {
 }
 
 #sectionInfo .borderRight {
-    border-right: none;
+    /* border-right: none; */
 }
 
 #sectionInfo .comentarios {
