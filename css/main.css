@@ -198,7 +198,6 @@ header {
 .visitaGuiada {
     display: inline-flex;
     width: 100%;
-    flex-direction: row-reverse;
     justify-content: start;
     align-items: center;
 }
