@@ -247,14 +247,14 @@ header {
     width: 100%;
     margin: 8px 0;
     border-spacing: 0;
-    outline: 4px double #000;
+    outline: 5px double #000;
     outline-offset: -4px;
     border-collapse: collapse;
 }
 
 #sectionInfo th, td {
-    border-right: 4px solid black;
-    border-left: 4px solid black;
+    border-right: 5px solid black;
+    border-left: 5px solid black;
     padding: 16px 0;
     text-align: center;
     vertical-align: middle;
@@ -265,11 +265,11 @@ header {
 }
 
 #sectionInfo .tableRow {
-    outline: 4px double #000;
+    outline: 5px double #000;
     outline-offset: -2px;
 }
 
-#sectionInfo .comentarios {
+#sectionInfo .comentarios {     
     border-left: 5px double black;
     border-right: 5px double black;
 }
