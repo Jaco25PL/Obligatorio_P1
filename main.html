@@ -8,8 +8,8 @@
     <body>
         <header>
             <h1>Museo de Arte</h1>
-            <p class="subtitle">Trabajo realizado por <a href="https://www.linkedin.com/in/matiaspiedra/">MATÍAS PIEDRA (354007)</a> y <a href="https://www.linkedin.com/in/jplangone/">JOAQUÍN PIEDRA (304804).</a></p>
-            <button type="button" class="header_button">Colores</button>
+            <p class="subtitle">Trabajo realizado por <a href="https://www.linkedin.com/in/matiaspiedra/">MATÍAS PIEDRA (354007)</a> y <a href="https://www.linkedin.com/in/jplangone/">JOAQUÍN PIEDRA (304804)</a></p>
+            <button type="button" class="headerButton">Colores</button>
         </header>
 
         <section id="sectionIngresos">
@@ -20,14 +20,14 @@
                 <form id="registrarArtistas">
                     <h3>Registrar Artistas</h2>
 
-                    <label for=""nombre>Nombre:</label>
+                    <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre">
 
                     <label for="edad">Edad:</label>
                     <input type="text" id="edad" name="edad">
                     
                     <label for="característica">Características del estilo</label>
-                    <textarea type="text" if="característica" name="característica"></textarea>
+                    <textarea type="text" name="característica"></textarea>
                     
                     <button class="button" type="button">Agregar Artista</button>
                 </form>
@@ -39,12 +39,12 @@
                     <input type="text" id="titulo" name="titulo">
 
                     <label for="fecha">Fecha de comienzo:</label>
-                    <input type="date" id="fecha" name="fecha" placeholder="dd">
+                    <input type="date" id="fecha" name="fecha">
                 
                     <label for="descripción">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" rows="4" cols="50"></textarea>
+                    <textarea id="descripcion" name="descripcion"></textarea>
                 
-                    <span>Elegir artista:</span><br>
+                    <label>Elegir artista:</label>
 
                     <div class="listBoxes">
                         <select class="listBox" multiple>
@@ -53,10 +53,8 @@
                           <option>Nombre 3</option>
                         </select>
                         
-                        <!-- <div> -->
-                            <button class="header_button" type="button">>></button>
-                            <button class="header_button" type="button"><<</button>
-                        <!-- </div> -->
+                        <button class="headerButton" type="button">>></button>
+                        <button class="headerButton" type="button"><<</button>
                         
                         <select class="listBox" multiple>
                           <option>Nombre 4</option>
@@ -76,13 +74,13 @@
                         <option value="titulo1">Título 1</option>
                     </select>
 
-                    <label for="nombre_visitante">Nombre del visitante:</label>
-                    <input type="text" id="nombre_visitante" name="nombre_visitante">
+                    <label for="nombreVisitante">Nombre del visitante:</label>
+                    <input type="text" id="nombreVisitante" name="nombreVisitante">
 
                     <label for="comentario">Comentario:</label>
-                    <textarea id="comentario" name="comentario" rows="2" cols="50"></textarea>
+                    <textarea id="comentario" name="comentario" ></textarea>
 
-                    <span>Calificación:</span>
+                    <label>Calificación:</label>
                     <ul class="calificacionList">
                         <li>
                             <input type="radio" name="calificacion" value="1"><img class="smiley" src="img/red.jpg" alt="smiley rojo">
@@ -114,13 +112,13 @@
         
         <section id="sectionInfo">
             <h2>Información General</h2>
-            <p><strong>Título de las Exposiciones con más artistas:</strong></p>
+            <p>Título de las Exposiciones con más artistas:</p>
             <ul>
                 <li>Dato ficticio 1</li>
                 <li>Dato ficticio 2</li>
             </ul>
 
-            <p><strong>Título y fecha de las Exposiciones con comentarios: (ordenadas por fecha creciente)</strong></p>
+            <p>Título y fecha de las Exposiciones con comentarios: (ordenadas por fecha creciente)</p>
             <ul>
                 <li>Dato ficticio 1</li>
                 <li>Dato ficticio 2</li>
@@ -129,11 +127,11 @@
             <form>
                 <h2>Información de Comentarios</h2>
 
-                <label for="exposicionFiltro">Exposición:</label><br>
+                <label for="exposicionFiltro">Exposición:</label>
                 <select id="exposicionFiltro" name="exposicionFiltro">
                     <option value="todas">Todas</option>
                 </select>
-                    
+
                 <table>
                     <tr>
                         <th>Título</th>
@@ -143,7 +141,7 @@
                         <th>Guiada</th>
                         <th class="borderRight"><button type="button" class="button">Calificación creciente</button></th>
                     </tr>
-                    <tr>
+                    <tr class="tableRow">
                         <td>Título 1</td>
                         <td><button  type="button" class="button">Ampliar</button></td>
                         <td class="borderRight">Nombre ficticio 1</td>

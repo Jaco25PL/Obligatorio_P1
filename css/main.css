@@ -1,3 +1,4 @@
+General
 *{
     padding: 0;
     margin: 0;
@@ -26,7 +27,7 @@ header {
     font-weight: bold;
 }
 
-.header_button {
+.headerButton {
     padding: 4px 9px;
     border-color: #aaa;
     border-style: solid;
@@ -38,12 +39,12 @@ header {
     -o-border-radius: 4px;
 } 
 
-.header_button:hover{
+.headerButton:hover{
     cursor: pointer;
     background-color: #ddd;
 }
 
-.header_button:active{
+.headerButton:active{
     background-color: #bbb;
 }
 
@@ -53,7 +54,7 @@ header {
     background-color: #98fb98;
     margin: 20px;
     overflow: hidden;
-    padding: 10px;
+    padding: 24px 28px;
     border-radius: 24px;
     -webkit-border-radius: 24px;
     -moz-border-radius: 24px;
@@ -128,6 +129,10 @@ header {
 }
 
 .listBox option {
+    font-weight: bold;
+}
+
+#exposicion {
     font-weight: bold;
 }
 
@@ -211,6 +216,7 @@ header {
 #sectionInfo {
     background-color: #98fb98;
     margin: 20px 48px;
+    font-weight: bold;
     padding: 24px 28px;
     border-radius: 30px;
     -webkit-border-radius: 30px;
@@ -219,22 +225,24 @@ header {
     -o-border-radius: 30px;
 }
 
+
 #sectionInfo ul {
-    list-style-type: disc;
-    font-weight: bold;
-} 
+    list-style-type: square;
+}
 
 #sectionInfo form label {
-    font-weight: bold;
-    display: inline-block;
+    display: block;
     margin-bottom: 8px;
     padding: 0;
 }
 
 #sectionInfo form select {
-    margin-bottom: 32px;
     font-weight: bold;
+    padding-right: 8px;
+    margin-bottom: 32px;
 }
+
+
 #sectionInfo table {
     width: 100%;
     margin: 8px 0;
@@ -242,35 +250,23 @@ header {
     outline: 4px double #000;
     outline-offset: -4px;
     border-collapse: collapse;
-    /* outline-style: inset; */
-    /* outline: 4px  double  #000; */
-    /* border-top: 5px double black; */
-    /* border-bottom: 5px double black; */
-    /* border-left: 4px solid black; */
-    /* border-right: 4px solid black; */
 }
 
 #sectionInfo th, td {
-    /*outline: 4px solid #000;*/
     border-right: 4px solid black;
     border-left: 4px solid black;
-
     padding: 16px 0;
     text-align: center;
     vertical-align: middle;
-    -webkit-border-radius: 4px solid black;
-    -moz-border-radius: 4px solid black;
-    -ms-border-radius: 4px solid black;
-    -o-border-radius: 4px solid black;
 }
 
 #sectionInfo td {
     padding: 6px 0;
-    border-top: 5px double black;
 }
 
-#sectionInfo .borderRight {
-    /* border-right: none; */
+#sectionInfo .tableRow {
+    outline: 4px double #000;
+    outline-offset: -2px;
 }
 
 #sectionInfo .comentarios {
