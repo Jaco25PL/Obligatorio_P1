@@ -2,6 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
+        <meta name="author" content="Matias Piedra (354007) & Joaquin Piedra (304804)">
         <title>Museo de Arte</title>
         <link rel="stylesheet" href="css/main.css">
     </head>
@@ -18,7 +19,7 @@
             <div class="inputContainer">
              
                 <form id="registrarArtistas">
-                    <h3>Registrar Artistas</h2>
+                    <h3>Registrar Artistas</h3>
 
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre">
@@ -26,14 +27,14 @@
                     <label for="edad">Edad:</label>
                     <input type="text" id="edad" name="edad">
                     
-                    <label for="característica">Características del estilo</label>
-                    <textarea type="text" name="característica"></textarea>
+                    <label for="caracteristica">Características del estilo</label>
+                    <textarea id="caracteristica" name="caracteristica"></textarea>
                     
                     <button class="button" type="button">Agregar Artista</button>
                 </form>
 
                 <form id="ingresarExposiciones">
-                    <h3>Ingresar Exposiciones</h2>
+                    <h3>Ingresar Exposiciones</h3>
                     
                     <label for="titulo">Título:</label>
                     <input type="text" id="titulo" name="titulo">
@@ -41,7 +42,7 @@
                     <label for="fecha">Fecha de comienzo:</label>
                     <input type="date" id="fecha" name="fecha">
                 
-                    <label for="descripción">Descripción:</label>
+                    <label for="descripcion">Descripción:</label>
                     <textarea id="descripcion" name="descripcion"></textarea>
                 
                     <label>Elegir artista:</label>
@@ -53,9 +54,9 @@
                           <option>Nombre 3</option>
                         </select>
                         
-                        <button class="headerButton" type="button">>></button>
-                        <button class="headerButton" type="button"><<</button>
-                        
+                        <button class="headerButton" type="button">&gt;&gt;</button>
+                        <button class="headerButton" type="button">&lt;&lt;</button>
+
                         <select class="listBox" multiple>
                           <option>Nombre 4</option>
                           <option>Nombre 5</option>
@@ -67,7 +68,7 @@
                 </form>
 
                 <form id="comentariosDeVisitas">
-                    <h3>Comentarios de Visitas</h2>
+                    <h3>Comentarios de Visitas</h3>
                     
                     <label for="exposicion">Exposición</label>
                     <select id="exposicion" name="exposicion">
@@ -92,7 +93,7 @@
                             <input type="radio" name="calificacion" value="3"><img class="smiley" src="img/yellow.jpg" alt="smiley amarillo">
                         </li>
                         <li>
-                            <input type="radio" name="calificacion" value="4"><img class="smiley" src="img/lightgreen.jpg" alt=smiley "verde claro">
+                            <input type="radio" name="calificacion" value="4"><img class="smiley" src="img/lightgreen.jpg" alt="smiley verde claro">
                         </li>
                         <li>
                             <input type="radio" name="calificacion" value="5"><img class="smiley" src="img/green.jpg" alt="smiley verde">
@@ -124,9 +125,9 @@
                 <li>Dato ficticio 2</li>
             </ul>
 
-            <form>
-                <h2>Información de Comentarios</h2>
+            <h2>Información de Comentarios</h2>
 
+            <form>
                 <label for="exposicionFiltro">Exposición:</label>
                 <select id="exposicionFiltro" name="exposicionFiltro">
                     <option value="todas">Todas</option>

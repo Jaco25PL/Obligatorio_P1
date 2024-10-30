@@ -1,4 +1,7 @@
-General
+/* 
+Trabajo de Matias Piedra (354007) & Joaquin Piedra (304804)
+*/
+
 *{
     padding: 0;
     margin: 0;
@@ -33,10 +36,6 @@ header {
     border-style: solid;
     font-weight: bold;
     border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
 } 
 
 .headerButton:hover{
@@ -56,10 +55,6 @@ header {
     overflow: hidden;
     padding: 24px 28px;
     border-radius: 24px;
-    -webkit-border-radius: 24px;
-    -moz-border-radius: 24px;
-    -ms-border-radius: 24px;
-    -o-border-radius: 24px;
 }
 
 .inputContainer{
@@ -90,10 +85,6 @@ header {
     padding: 4px 8px;
     border: 2px solid #aaa;
     border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
 }
 
 #sectionIngresos form textarea {
@@ -122,10 +113,6 @@ header {
     height: 92px;
     border: 2px solid #aaa;
     border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
 }
 
 .listBox option {
@@ -149,10 +136,6 @@ header {
     border-radius: 4px;
     border: 2px solid transparent;
     border-color: #4caf50 #409044 #409044 #4caf50; 
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
 }
 
 .button:hover {
@@ -218,15 +201,15 @@ header {
     font-weight: bold;
     padding: 24px 28px;
     border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
 }
 
+#sectionInfo > h2 {
+    margin-bottom: 18px;
+}
 
 #sectionInfo ul {
     list-style-type: square;
+    margin: 18px 38px;
 }
 
 #sectionInfo form label {
