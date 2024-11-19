@@ -60,7 +60,6 @@ function agregarArtista(){
     listaArtistas1.appendChild(nuevoOption);
 
     document.getElementById("formRegistrarArtistas").reset();
-
 }
 
 function moverArtistaDerecha(){
@@ -161,10 +160,10 @@ function agregarComentario() {
     let guia = document.getElementById("guia").checked;
     
     // Validaciones
-    if (!exposicionTitulo || !nombreVisitante || !comentarioTexto) {
-        alert("Por favor, complete todos los campos.");
-        return;
-    }
+    // if (!exposicionTitulo || !nombreVisitante) {
+    //     alert("Por favor, complete todos los campos.");
+    //     return;
+    // }
     
     // Encontrar la exposición correspondiente
     let exposicionEncontrada = sistemaMuseo.exposiciones.find(expo => expo.titulo === exposicionTitulo);
@@ -344,3 +343,6 @@ document.addEventListener("DOMContentLoaded", function() {
         actualizarTablaComentarios();
     });
 });
+
+
+
