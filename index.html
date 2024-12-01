@@ -1,27 +1,25 @@
 <!-- 
- Trabajo de Matias Piedra (354007) & Joaquin Piedra (304804)
+    Trabajo de Matias Piedra (354007) & Joaquin Piedra (304804)
 -->
 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Matias Piedra (354007) & Joaquin Piedra (304804)">
-        <title>Museo de Arte</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Matias Piedra (354007) & Joaquin Piedra (304804)">
+    <title>Museo de Arte</title>
 
-        <link rel="stylesheet" href="css/estilos.css">
-
-        <script src="js/clases.js"></script>
-        <script src="js/funciones.js"></script>
-    </head>
+    <link rel="stylesheet" href="css/estilos.css">
+    
+    <script src="js/clases.js"></script>
+    <script src="js/funciones.js"></script>
+</head>
     <body>
         <header id="idHeader" class="cambiarColor">
             <h1>Museo de Arte</h1>
             <p class="subtitle">Trabajo realizado por <a href="https://www.linkedin.com/in/matiaspiedra/" target="_blank">MATÍAS PIEDRA (354007)</a> y <a href="https://www.linkedin.com/in/jplangone/" target="_blank">JOAQUÍN PIEDRA (304804)</a></p>
             <button id="botonColores" type="button" class="headerButton">Colores</button>
         </header>
-
-<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
         <section id="sectionIngresos" class="container cambiarColor">
             <h2 id="ingresos">Ingresos</h2>
@@ -37,13 +35,12 @@
                         <label for="edad">Edad:</label>
                         <input type="number" id="edad" name="edad" required>
                         
-                        <label for="caracteristica">Características del estilo</label>
+                        <label for="caracteristica">Características del estilo:</label>
                         <textarea id="caracteristica" name="caracteristica" required></textarea>
                         
-                        <button id="botonAgregarArtista" class="button" type="button">Agregar Artista</button>
+                        <button id="botonAgregarArtista" class="button" type="submit">Agregar Artista</button>
                     </form>
-                </section>
-                
+                </section>       
 
                 <section id="sectionExposiciones" class="sectionForm ">
                     <h3>Ingresar Exposiciones</h3>
@@ -58,23 +55,21 @@
                         <label for="descripcion">Descripción:</label>
                         <textarea id="descripcion" name="descripcion" required></textarea>
                     
-                        <label>Elegir artista:</label>
+                        <label>Elegir artistas:</label>
     
                         <div class="elegirArtista">
                             <select id="idListaArtistas1" class="listaArtistas" multiple >
-
                             </select>
                             
                             <button id="moverArtistaDerecha" class="headerButton" type="button">&gt;&gt;</button>
                             <button id="moverArtistaIzquierda" class="headerButton" type="button">&lt;&lt;</button>
     
-                            <select id="idListaArtistas2" class="listaArtistas" multiple required>
-
+                            <select id="idListaArtistas2" class="listaArtistas" multiple required>          
                             </select>
                         </div>
     
     
-                        <button id="botonAgregarExposicion" class="button" type="button">Agregar Exposición</button>
+                        <button id="botonAgregarExposicion" class="button" type="submit">Agregar Exposición</button>
                     </form>
                 </section>
 
@@ -84,14 +79,14 @@
                     <form id="formComentariosDeVisitas">
                         <label for="exposicion">Exposición</label>
                         <select id="exposicion" name="exposicion" required>
-
+                            <option value="" disabled selected>Sin datos</option>
                         </select>
     
                         <label for="nombreVisitante">Nombre del visitante:</label>
                         <input type="text" id="nombreVisitante" name="nombreVisitante" required>
     
                         <label for="comentario">Comentario:</label>
-                        <textarea id="comentario" name="comentario" required></textarea>
+                        <textarea id="comentario" name="comentario"></textarea>
     
                         <label>Calificación:</label>
                         <ul class="calificacionList">
@@ -130,24 +125,22 @@
                             <input id="guia" type="checkbox" name="guia">
                             <label for="guia">Hice visita guiada</label>
                         </div>
-                        <button id="botonAgregarComentario" class="button" type="button">Agregar Comentario</button>
+                        <button id="botonAgregarComentario" class="button" type="submit">Agregar Comentario</button>
                     </form>
                 </section>
-                
             </div>
         </section>
         
-<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-
         <section id="sectionInfo" class="container cambiarColor">
             <h2>Información General</h2>
             <p>Título de la/s Exposiciones con más artistas:</p>
-            <ul>
+            
+            <ul id="listaMasArtistas">
                 <li>sin datos</li>
             </ul>
 
             <p>Título y fecha de la/s Exposiciones sin comentarios: (ordenadas por fecha creciente)</p>
-            <ul>
+            <ul id="listaSinComentarios">
                 <li>sin datos</li>
             </ul>
 
@@ -166,7 +159,7 @@
                         <th class="borderRight">Nombre</th>
                         <th class="comentarios">Comentario</th>
                         <th>Guiada</th>
-                        <th class="borderRight"><button type="button" class="button">Calificación creciente</button></th>
+                        <th class="borderRight"><button type="button" class="button" id="tableButton">Calificación creciente</button></th>
                     </tr>
                     
                 </table>

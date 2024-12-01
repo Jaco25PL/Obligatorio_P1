@@ -1,119 +1,147 @@
-let sistema = new Sistema();
+//Trabajo de Matias Piedra (354007) & Joaquin Piedra (304804)
+
+let sistema = new Sistema(); // Creamos la clase sistema antes que nada
 
 window.addEventListener('load', inicio);
 
 function inicio() {
-    // Botones principales
-    document.getElementById('botonAgregarArtista').addEventListener('click', agregarArtista);
-    document.getElementById('botonAgregarExposicion').addEventListener('click', agregarExposicion);
-    document.getElementById('botonAgregarComentario').addEventListener('click', agregarComentario);
+    // Obtenemos el boton cambiar color y aplicamos la fucnion
     document.getElementById('botonColores').addEventListener('click', cambiarColores);
+    
+    // Obtenemos el form de los coments para prevenir la recarga al darle al boton, Luego ejecutamos la funcion agregar comentario
+    document.getElementById('formComentariosDeVisitas').addEventListener('submit', function (e) {
+        e.preventDefault();
+        agregarComentario();
+        ordenCreciendo = true; // Restablecer el orden a creciente
+        ordenarPorCalificacion(); // Ordenar por calificación
+    })
+    
+    document.getElementById('formIngresarExposiciones').addEventListener('submit', function (e) {
+        e.preventDefault();
+        agregarExposicion(); // Agregar exposicion
+    })
+    
+    document.getElementById('formRegistrarArtistas').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevenir recarga de la página
+        agregarArtista(); // Agregar artista
+    });
     
     // Botones de movimiento de artistas
     document.getElementById('moverArtistaDerecha').addEventListener('click', moverArtistaDerecha);
     document.getElementById('moverArtistaIzquierda').addEventListener('click', moverArtistaIzquierda);
     
-    actualizarListasArtistas();
-    actualizarListaExposiciones();
+    document.getElementById('tableButton').addEventListener('click', ordenarPorCalificacion);
+
+    document.getElementById('exposicionFiltro').addEventListener('change', filtrarTablaPorExposicion);
+ 
+    actualizarListasArtistas(); // Actualizar el select de artistas
+    actualizarListaExposiciones(); // Actualizar el select de exposiciones
+    actualizarTablaComentarios();  // Actualizar la tabla de comentarios
 }
 
-
 let colorOriginal = true;
-function cambiarColor(){
-    let cambiarColor = document.getElementsByClassName("cambiarColor")
+function cambiarColores(){
+    let cambiarColor = document.getElementsByClassName("cambiarColor"); // Traemos todos los elementos con la clase cambiarColor
 
     if(colorOriginal){
         for (let i = 0; i < cambiarColor.length; i++) {
-            cambiarColor[i].style.backgroundColor = "#8DB58E"        
+            cambiarColor[i].style.backgroundColor = "#8DB58E"; // Cambiamos el color de fondo   
         }
         colorOriginal = false;
     } else if (!colorOriginal){
         for (let i = 0; i < cambiarColor.length; i++) {
-            cambiarColor[i].style.backgroundColor = "#98fb98"
+            cambiarColor[i].style.backgroundColor = "#98fb98"; // Cambiamos el color de fondo
         }
         colorOriginal = true;
     }
 }
 
 function agregarArtista(){
+
+    // Obtenemos datos del formulario
     let nombre = document.getElementById('nombre').value;
     let edad = parseInt(document.getElementById('edad').value);
     let caracteristica = document.getElementById('caracteristica').value;
 
-    // Validar
-    // if (!nombre || !edad || !caracteristica) {
-    //     alert("Por favor, completa todos los campos.");
-    //     return;
-    // }
-
-    // let listaArtistas1 = document.getElementById("idListaArtistas1");
-    // let opciones = listaArtistas1.options;
-
-    // Verifica si el artista ya está en la lista
-    // for (let i=0; i < opciones.length; i++) {
-    //     if (opciones[i].text.toLowerCase() === nombre.toLowerCase()) {
-    //         alert("El artista ya está en la lista.");
-    //         return;
-    //     }
-    // }
-
-    // Crear artista y agregarlo al sistema
-    // let nuevoArtista = new Artista(nombre, edad, caracteristica)
+    // Creamos un nuevo artista con la estructura de la clase Artista 
     let artista = new Artista(nombre, edad, caracteristica);
+
+    // Si el artista ya esta, al agregarlo a sistema devolvera false, sino, entraen el if y lo agrega
     if (sistema.agregarArtista(artista)) {
-        document.getElementById('formRegistrarArtistas').reset();
-        actualizarListasArtistas();
+        document.getElementById('formRegistrarArtistas').reset(); // Limpiar el formulario
+        actualizarListasArtistas(); // Actualizar el select de los artistas
+    } else {
+        alert('El artista ya existe. Intenta nuevamente.');
     }
-
-    // sistemaMuseo.agregarArtista(nuevoArtista)
-
-    // Agregar a la lista visual
-    // let nuevoOption = document.createElement("option");
-    // nuevoOption.innerHTML = nombre;
-    // listaArtistas1.appendChild(nuevoOption);
-
-    // document.getElementById("formRegistrarArtistas").reset();
 }
 
 function moverArtistaDerecha(){
+
+    //Traemos los dos selects
     let listaArtistas1 = document.getElementById("idListaArtistas1");
     let listaArtistas2 = document.getElementById("idListaArtistas2");
 
-    // Obtiene los artistas seleccionados en el primer select
+    // Obtiene los artistas seleccionados en el primer select y lo convierte en un array
     let opcionesSeleccionadas = Array.from(listaArtistas1.selectedOptions);
 
-    // Mueve cada opción seleccionada al segundo select
+    // Mueve CADA UNA opción seleccionada del primer select al segundo select
     opcionesSeleccionadas.forEach(opcion => {
         listaArtistas2.appendChild(opcion);
     });
+
 }
 
 function moverArtistaIzquierda(){
+
+    // Traemos los dos selects
     let listaArtistas1 = document.getElementById("idListaArtistas1");
     let listaArtistas2 = document.getElementById("idListaArtistas2");
 
-    // Obtiene los artistas seleccionados en el segundo select
+    // Obtiene los artistas seleccionados en el segundo select y los convierte en un array
     let opcionesSeleccionadas = Array.from(listaArtistas2.selectedOptions);
 
-    // Mueve cada opción seleccionada al primer select
+    // Mueve CADA UNA de las opciones seleccionadas del segundo select al primer select
     opcionesSeleccionadas.forEach(opcion => {
         listaArtistas1.appendChild(opcion);
     });
+
+    // Ordenamos alfabeticamente
+    actualizarListasArtistas();
 }
 
+function actualizarListasArtistas() {
 
-// let exposiciones = [];
+    // Traemos el primer select y lo limpiamos
+    let lista = document.getElementById('idListaArtistas1');
+    lista.innerHTML = '';
+    
+    // Ordenamos los artistas alfabeticamente
+    let sortedArtistas = sistema.artistas.sort((a, b) => {
+        if (a.nombre < b.nombre) return -1; // Coloca -> a antes que b
+        if (a.nombre > b.nombre) return 1; // Coloca -> b antes que a
+        return 0;
+    });
+
+    // Va creando las opciones ordenadas y las mete en el select 
+    for (let i = 0; i < sistema.artistas.length; i++) {
+        let option = document.createElement('option');
+        option.innerText = sortedArtistas[i].nombre;
+        lista.add(option);
+    }
+}   
+
 function agregarExposicion(){
+
+    // Traemos los datos del formulario
     let titulo = document.getElementById("titulo").value.trim();
     let fecha = document.getElementById("fecha").value;
     let descripcion = document.getElementById("descripcion").value.trim();
-    // let listaArtistas2 = document.getElementById("idListaArtistas2");
-    
-    // Obtener los nombres de artistas seleccionados
-    // let artistasSeleccionados = Array.from(listaArtistas2.options).map(option => option.text);
+
+    // Obtenemos los artistas seleccionados en formato de array
     let artistasSeleccionados = Array.from(document.getElementById("idListaArtistas2").options);
     let artistas = []
-    
+
+    // Comparamos al nombre del artista seleccionado con el nombre de los artistas en sistema, para pushear al artista con todos sus datos
     for (let i = 0; i < artistasSeleccionados.length; i++) {
         for (let j = 0; j < sistema.artistas.length; j++) {
             if (sistema.artistas[j].nombre === artistasSeleccionados[i].text) {
@@ -122,179 +150,134 @@ function agregarExposicion(){
         }
     }
 
+    // Creamos una nueva exposicion con los datos obtenidos, usando la calse Exposicion
     let exposicion = new Exposicion(titulo, fecha, descripcion, artistas);
+   
+    // Si la exposicion ya existe, no se agrega, sino, se agrega (esto es porque el metoodo agregarExposicion retorna true o false)
     if (sistema.agregarExposicion(exposicion)) {
-        document.getElementById('formIngresarExposiciones').reset();
-        document.getElementById('idListaArtistas2').innerHTML = '';
-        actualizarListaExposiciones();
-        actualizarInformacionGeneral();
+        document.getElementById('formIngresarExposiciones').reset(); // Limpiar el formulario
+        document.getElementById('idListaArtistas2').innerHTML = ''; // Vaciar la lista de artistas seleccionados
+        actualizarListaExposiciones(); // Actualizar la lista de exposiciones
+        actualizarInformacionGeneral(); // Actualizar información general
+        actualizarListasArtistas(); // Actualizar select de elegir artista
+    } else {
+        alert('La exposición ya existe, intenta nuevamente.');
     }
 
-    // Validaciones
-    // if (!titulo || !fecha || !descripcion || listaArtistas2.options.length === 0) {
-    //     alert("Por favor, complete todos los campos y seleccione al menos un artista.");
-    //     return;
-    // }
-    
-    
-    // Crear nueva exposicion y agregarla al sistema
-    // let nuevaExposicion = new Exposicion(titulo, fecha, descripcion, artistasSeleccionados);
-    
-    // sistemaMuseo.agregarExposicion(nuevaExposicion);
-    
-    // Actualizar el select de exposiciones en la sección de comentarios
-    // actualizarSelectExposiciones();
-    
-    // Limpiar formulario y devolver artistas
-    // document.getElementById("formIngresarExposiciones").reset();
-    // while (listaArtistas2.options.length > 0) {
-        // document.getElementById("idListaArtistas1").appendChild(listaArtistas2.options[0]);
-    // }
 }
 
-// function actualizarSelectExposiciones() {
-//     let selectExposicion = document.getElementById("exposicion");
-//     let selectExposicionFiltro = document.getElementById("exposicionFiltro");
-    
-//     // Limpiar las opciones actuales
-//     selectExposicion.innerHTML = "";
-//     selectExposicionFiltro.innerHTML = "<option value='todas'>Todas</option>";
-    
-//     // Agregar las exposiciones a ambos selects
-//     sistemaMuseo.exposiciones.forEach(expo => {
-//         // Agregar al select de comentarios
-//         let option1 = document.createElement("option");
-//         option1.value = expo.titulo;
-//         option1.text = expo.titulo;
-//         selectExposicion.appendChild(option1);
-    
-//         // Agregar al select de filtro
-//         let option2 = document.createElement("option");
-//         option2.value = expo.titulo;
-//         option2.text = expo.titulo;
-//         selectExposicionFiltro.appendChild(option2);
-//     })
-// }
-
-// Variable global para el orden de la tabla
-// let ordenAscendente = true;
-
 function agregarComentario() {
-    // Obtener valores del form
 
-    let exposicionSelect = document.getElementById('exposicion');
-    let exposicion = sistema.exposiciones[exposicionSelect.selectedIndex];
+    // Obtenemos los datos del formulario
+    let exposicionSelect = document.getElementById('exposicion');    
     let nombreVisitante = document.getElementById('nombreVisitante').value;
     let comentario = document.getElementById('comentario').value;
     let calificacion = document.querySelector('input[name="calificacion"]:checked').value;
     let guiada = document.getElementById('guia').checked;
 
+    // Guardamos la exposicion seleccionada (selectedIndex es el indice de la opcion seleccionada)
+    let exposicion = sistema.exposiciones[exposicionSelect.selectedIndex];
+    
+    // Creamos una nueva visita con los datos obtenidos usando la clase Visita
     let visita = new Visita(exposicion, nombreVisitante, comentario, calificacion, guiada);
-    sistema.agregarVisita(visita);
-    document.getElementById('formComentariosDeVisitas').reset();
-    actualizarTablaComentarios();
-    actualizarInformacionGeneral();
 
-    // let exposicionTitulo = document.getElementById("exposicion").value;
-    // let comentarioTexto = document.getElementById("comentario").value.trim();
-    
-    // Obtener calificacion
-    
-    // Verificar visita guiada
-    // let guia = document.getElementById("guia").checked;
-    
-    // Validaciones
-    // if (!exposicionTitulo || !nombreVisitante) {
-    //     alert("Por favor, complete todos los campos.");
-    //     return;
-    // }
-    
-    // Encontrar la exposición correspondiente
-    // let exposicionEncontrada = sistemaMuseo.exposiciones.find(expo => expo.titulo === exposicionTitulo);
-    
-    // if (!exposicionEncontrada) {
-        // alert("Exposición no encontrada.");
-        // return;
-    // }
-    
-    // Crear nueva Visita (comentario)
-    // let nuevaVisita = new Visita(
-    //     exposicionEncontrada,
-    //     nombreVisitante,
-    //     comentarioTexto,
-    //     parseInt(calificacion),
-    //     guia
-    // );
-    
-    // Agregar comentario a la exposición y al sistema
-    // exposicionEncontrada.agregarComentario(nuevaVisita);
-    // sistemaMuseo.agregarComentario(nuevaVisita);
-    
-    // Actualizar la información mostrada
-    // actualizarInformacionGeneral();
-    // actualizarTablaComentarios();
-    
-    // Limpiar formulario
-    // document.getElementById("formComentariosDeVisitas").reset();
-}
-
-function actualizarListasArtistas() {
-    let lista1 = document.getElementById('idListaArtistas1');
-    lista1.innerHTML = '';
-    
-    for (let i = 0; i < sistema.artistas.length; i++) {
-        let option = document.createElement('option');
-        option.text = sistema.artistas[i].nombre;
-        lista1.add(option);
+    // Si la visita se agrega correctamente (porque la calse retorna true or false), se limpia el formulario y se actualiza la tabla
+    if (sistema.agregarVisita(visita)) {
+        document.getElementById('formComentariosDeVisitas').reset();
+        actualizarTablaComentarios();
+        actualizarInformacionGeneral();
+    } else {
+        alert('No se pudo agregar la exposición. Intenta nuevamente.'); // En caso de errores inesperados
     }
 }
 
+function filtrarTablaPorExposicion() {
+
+    // Obtenemos el valor del select de exposiciones
+    const filtro = document.getElementById('exposicionFiltro').value;
+    
+    let visitasFiltradas = []; // Array para guardar las visitas filtradas
+
+    // Filtrar las visitas que coincidan con el filtro
+    if (filtro === 'todas') {
+        visitasFiltradas = sistema.visitas;  // Mostrar todas las visitas
+    } else {
+        for (let i = 0; i < sistema.visitas.length; i++) {
+            if (sistema.visitas[i].exposicion.titulo === filtro) { // Si la exposicion de la visita coincide con el filtro 
+                visitasFiltradas.push(sistema.visitas[i]);  // Agregar la visita al array
+            }
+        }
+    }
+
+    // Actualizar la tabla con las visitas filtradas
+    actualizarTablaComentarios(visitasFiltradas);
+
+    return visitasFiltradas;
+}
+
 function actualizarListaExposiciones() {
+
+    // Obtenemos los selects de exposiciones y de filtrar exposiciones
     let selectExposicion = document.getElementById('exposicion');
     let selectFiltro = document.getElementById('exposicionFiltro');
-    selectExposicion.innerHTML = '';
-    selectFiltro.innerHTML = '<option value="todas">Todas</option>';
+
+    selectExposicion.innerHTML = ''; // Limpiar el select
+    selectFiltro.innerHTML = '<option value="todas">Todas</option>'; // Limpiar el select y agregar la opción 'Todas'
     
+    // Ordenamos las exposiciones alfabeticamente
+    let exposicionesSorted = sistema.ordenarExposicionesAlfabeticamente();
+
+    // Creamos las opciones de los selects con las exposiciones ordenadas en ambos selects
     for (let i = 0; i < sistema.exposiciones.length; i++) {
-        let option1 = document.createElement('option');
-        let option2 = document.createElement('option');
-        option1.text = sistema.exposiciones[i].titulo;
-        option2.text = sistema.exposiciones[i].titulo;
-        selectExposicion.add(option1);
-        selectFiltro.add(option2);
+        let optionExposicion = document.createElement('option');
+        let optionFiltro = document.createElement('option');
+
+        // Agregamos el titulo de la exposicion a las opciones
+        optionExposicion.innerText = exposicionesSorted[i].titulo;
+        optionFiltro.innerText = exposicionesSorted[i].titulo;
+        
+        // Agregamos las opciones a los selects
+        selectExposicion.add(optionExposicion);
+        selectFiltro.add(optionFiltro);
     }
 }
 
 // Función para actualizar la información general
 function actualizarInformacionGeneral() {
-    // actualizarExposicionesConMasArtistas();
-    // actualizarExposicionesSinComentarios();
-
+ 
+    // Expos con mas artistas usando el metodo de Sistema
     let exposicionesMasArtistas = sistema.obtenerExposicionesConMasArtistas();
-    let listaMasArtistas = document.querySelector('#sectionInfo ul:first-of-type');
-    listaMasArtistas.innerHTML = '';
     
+    let listaMasArtistas = document.getElementById('listaMasArtistas');
+    // Limpiamos el contenido de la lista
+    listaMasArtistas.innerHTML = '';
+
+    // Si hay exposiciones con más artistas, las agregamos a la lista
     if (exposicionesMasArtistas.length > 0) {
         for (let i = 0; i < exposicionesMasArtistas.length; i++) {
-            let li = document.createElement('li');
-            li.textContent = exposicionesMasArtistas[i].titulo;
-            listaMasArtistas.appendChild(li);
+            let li = document.createElement('li'); // Creamos un elemento li
+            li.innerText = exposicionesMasArtistas[i].titulo; // Agregamos el título de la exposición
+            listaMasArtistas.appendChild(li); // Agregamos el li a la lista
         }
     } else {
+        // Si no hay exposiciones con más artistas, agregamos un li con el texto 'sin datos'
         let li = document.createElement('li');
-        li.textContent = 'sin datos';
+        li.innerText = 'sin datos';
         listaMasArtistas.appendChild(li);
     }
 
     // Expos sin comntarios
     let exposicionesSinComentarios = sistema.obtenerExposicionesSinComentarios();
-    let listaSinComentarios = document.querySelector('#sectionInfo ul:nth-of-type(2)');
+    let listaSinComentarios = document.getElementById('listaSinComentarios');
     listaSinComentarios.innerHTML = '';
-    
+
     if (exposicionesSinComentarios.length > 0) {
-        for (let i = 0; i < exposicionesSinComentarios.length; i++) {
+
+        for (let i = 0 ; i < exposicionesSinComentarios.length; i++) {
             let li = document.createElement('li');
-            li.textContent = exposicionesSinComentarios[i].titulo + ' - ' + exposicionesSinComentarios[i].fecha;
+            let [yyyy, mm, dd] = (exposicionesSinComentarios[i].fecha).split('-'); // Dividir la fecha en partes y asignarlo al array. Formato default es "YYYY-MM-DD"
+            let fechaFormato = `${dd}/${mm}/${yyyy}`; // Cambiar el formato de la fecha.
+            li.textContent = `${exposicionesSinComentarios[i].titulo} ${fechaFormato}`;
             listaSinComentarios.appendChild(li);
         }
     } else {
@@ -304,8 +287,60 @@ function actualizarInformacionGeneral() {
     }
 }
 
+function obtenerImagenCalificacion(calificacion) {
+    const rutasImagenes = {
+        1: 'img/red.jpg',       // Muy baja
+        2: 'img/orange.jpg',    // Baja
+        3: 'img/yellow.jpg',    // Media
+        4: 'img/lightgreen.jpg', // Buena
+        5: 'img/green.jpg',     // Excelente
+    };
 
-function actualizarTablaComentarios() {
+    let img = document.createElement('img');
+    img.src = rutasImagenes[calificacion]; // el path sera el valor de la calificacion pasado por parametro
+    img.alt = `Calificación ${calificacion}`;
+    img.className = 'imagen'; // Clase para asegurar que las imágenes sean consistentes con las del formulario
+    return img;
+}
+
+let ordenCreciendo = true; // Variable para controlar si el orden es creciente o decreciente
+function ordenarPorCalificacion() {
+
+    // Filtrar las visitas de acuerdo con el filtro actual
+    let visitasFiltradas = filtrarTablaPorExposicion(); 
+
+    // Ordena las visitas según el estado de `ordenCreciendo`
+    let filtroOrdenado = visitasFiltradas.sort((a, b) => {
+        if (visitasFiltradas.length > 1) {
+            
+            if (ordenCreciendo) {
+                return a.calificacion - b.calificacion; // Ascendente
+            } else {
+                return b.calificacion - a.calificacion; // Descendente
+            }
+
+        }
+    });
+
+    // Alterna el estado de orden
+    ordenCreciendo = !ordenCreciendo;
+
+    // Cambia el texto del botón según el orden
+    const botonCalificacion = document.getElementById('tableButton');
+
+    // Si hay más de una visita, cambia el texto del botón
+    if (visitasFiltradas.length > 1) {
+        if(ordenCreciendo){
+            botonCalificacion.innerText = 'Calificación decreciente';
+        } else{
+            botonCalificacion.innerText = 'Calificación creciente';
+        }
+    }
+
+    actualizarTablaComentarios(filtroOrdenado);
+}
+
+function actualizarTablaComentarios(visitas = sistema.visitas) { // Por defecto vale sistema.visitas, si se para un parametro se usa ese
     let tabla = document.querySelector('table');
     let filas = tabla.getElementsByTagName('tr');
     
@@ -314,185 +349,57 @@ function actualizarTablaComentarios() {
         tabla.deleteRow(1);
     }
 
-    for (let i = 0; i < sistema.visitas.length; i++) {
-        let fila = tabla.insertRow();
-        
-        let celdaTitulo = fila.insertCell();
-        celdaTitulo.textContent = sistema.visitas[i].exposicion.titulo;
+    // visitas.forEach((visita) => {
+    for (let i = 0; i < visitas.length; i++) {
+        let visita = visitas[i];  // Acceder al elemento actual de visitas
+        let fila = tabla.insertRow(); // Insertar una fila en la tabla
 
-        let celdaAmpliar = fila.insertCell();
-        let botonAmpliar = document.createElement('button');
+        // Columna: Título
+        let celdaTitulo = fila.insertCell(); // Insertar una celda en la fila
+        celdaTitulo.textContent = visita.exposicion.titulo; // Agregar el título de la exposición
+
+        // Columna: Más datos
+        let celdaAmpliar = fila.insertCell(); // Insertar una celda en la fila
+        let botonAmpliar = document.createElement('button'); 
         botonAmpliar.textContent = 'Ampliar';
         botonAmpliar.className = 'button';
-        botonAmpliar.onclick = function() {
-            alert('Título: ' + sistema.visitas[i].exposicion.titulo + 
-                  '\nFecha: ' + sistema.visitas[i].exposicion.fecha + 
-                  '\nDescripción: ' + sistema.visitas[i].exposicion.descripcion + 
-                  '\nArtistas: ' + sistema.visitas[i].exposicion.artistas.map(a => a.nombre).join(', '));
+        botonAmpliar.onclick = function (event) { // Función para mostrar la información de la exposición
+            event.preventDefault(); // Prevenir refresco
+            let artistasInfo = '';
+            for (let i = 0; i < visita.exposicion.artistas.length; i++) {
+                let artista = visita.exposicion.artistas[i]; // Acceder al artista actual
+                artistasInfo += `${artista.nombre} Edad: ${artista.edad} Estilo: ${artista.caracteristica}\n`;  // Agregar la información del artista
+            }
+
+            artistasInfo = artistasInfo.replace(/\n\s*\n/g, '\n'); // Eliminar líneas vacías
+
+            let [yyyy, mm, dd] = (visita.exposicion.fecha).split('-'); // Dividir la fecha en partes y asignarlo al array. Formato default es "YYYY-MM-DD"
+            let fechaFormato = `${dd}/${mm}/${yyyy}`; // Cambiar el formato de la fecha.
+
+            alert(`Información de la Exposición:\nFecha: ${fechaFormato}\nDescripción: ${visita.exposicion.descripcion}\nArtistas:\n${artistasInfo}`); // Mostrar alerta con la información
         };
+
         celdaAmpliar.appendChild(botonAmpliar);
 
+        // Columna: Nombre
         let celdaNombre = fila.insertCell();
-        celdaNombre.textContent = sistema.visitas[i].nombreVisitante;
+        celdaNombre.textContent = visita.nombreVisitante;
         celdaNombre.className = 'borderRight';
 
+        // Columna: Comentario
         let celdaComentario = fila.insertCell();
-        celdaComentario.textContent = sistema.visitas[i].comentario;
+        celdaComentario.textContent = visita.comentario;
         celdaComentario.className = 'comentarios';
 
+        // Columna: Guiada
         let celdaGuiada = fila.insertCell();
-        celdaGuiada.textContent = sistema.visitas[i].guiada ? 'Sí' : 'No';
+        celdaGuiada.textContent = visita.guiada ? 'SI' : 'NO';
 
+        // Columna: Calificación
         let celdaCalificacion = fila.insertCell();
-        celdaCalificacion.textContent = sistema.visitas[i].calificacion;
+        let imagenCalificacion = obtenerImagenCalificacion(visita.calificacion);
+        celdaCalificacion.appendChild(imagenCalificacion);
         celdaCalificacion.className = 'borderRight';
+        
     }
 }
-
-
-// Función para encontrar y mostrar exposiciones con más artistas
-// function actualizarExposicionesConMasArtistas() {
-//     const exposiciones = sistemaMuseo.exposiciones;
-//     if (exposiciones.length === 0) {
-//         document.querySelector("#sectionInfo ul:first-of-type").innerHTML = "<li>sin datos</li>";
-//         return;
-//     }
-    
-//     // Encontrar el máximo número de artistas
-//     const maxArtistas = Math.max(...exposiciones.map(expo => expo.artistas.length));
-    
-//     // Filtrar exposiciones con el máximo número de artistas
-//     const exposicionesMaxArtistas = exposiciones
-//         .filter(expo => expo.artistas.length === maxArtistas)
-//         .map(expo => expo.titulo)
-//         .sort(); // Ordenar alfabéticamente
-    
-//     // Actualizar la lista en el DOM
-//     const lista = document.querySelector("#sectionInfo ul:first-of-type");
-//     lista.innerHTML = exposicionesMaxArtistas
-//         .map(titulo => `<li>${titulo}</li>`)
-//         .join("");
-// }
-
-// // Función para mostrar exposiciones sin comentarios
-// function actualizarExposicionesSinComentarios() {
-//     const exposiciones = sistemaMuseo.exposiciones;
-//     if (exposiciones.length === 0) {
-//         document.querySelector("#sectionInfo ul:last-of-type").innerHTML = "<li>sin datos</li>";
-//         return;
-//     }
-    
-//     // Filtrar exposiciones sin comentarios y ordenar por fecha
-//     const exposicionesSinComentarios = exposiciones
-//         .filter(expo => expo.comentario.length === 0)
-//         .sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
-//         .map(expo => `${expo.titulo} (${new Date(expo.fecha).toLocaleDateString()})`);
-    
-//     // Actualizar la lista en el DOM
-//     const lista = document.querySelector("#sectionInfo ul:last-of-type");
-//     lista.innerHTML = exposicionesSinComentarios.length > 0
-//         ? exposicionesSinComentarios.map(texto => `<li>${texto}</li>`).join("")
-//         : "<li>sin datos</li>";
-// }
-
-// // Función para actualizar la tabla de comentarios
-// function actualizarTablaComentarios() {
-//     const tabla = document.querySelector("#sectionInfo table");
-//     const exposicionFiltro = document.getElementById("exposicionFiltro").value;
-//     let comentarios = sistemaMuseo.comentarios;
-    
-//     // Aplicar filtro de exposición si no es "todas"
-//     if (exposicionFiltro !== "todas") {
-//         comentarios = comentarios.filter(c => c.exposicion.titulo === exposicionFiltro);
-//     }
-    
-//     // Ordenar por calificación
-//     comentarios.sort((a, b) => {
-//         return ordenAscendente ? 
-//             a.calificacion - b.calificacion : 
-//             b.calificacion - a.calificacion;
-//     });
-    
-//     // Limpiar tabla existente (excepto el encabezado)
-//     while (tabla.rows.length > 1) {
-//         tabla.deleteRow(1);
-//     }
-    
-//     // Si no hay comentarios, mostrar mensaje
-//     if (comentarios.length === 0) {
-//         const row = tabla.insertRow();
-//         const cell = row.insertCell();
-//         cell.colSpan = 6;
-//         cell.textContent = "No hay comentarios para mostrar";
-//         return;
-//     }
-    
-//     // Agregar filas de comentarios
-//     comentarios.forEach(comentario => {
-//         const row = tabla.insertRow();
-        
-//         // Título
-//         const cellTitulo = row.insertCell();
-//         cellTitulo.textContent = comentario.exposicion.titulo;
-        
-//         // Más datos
-//         const cellMasDatos = row.insertCell();
-//         const btnAmpliar = document.createElement("button");
-//         btnAmpliar.textContent = "Ampliar";
-//         btnAmpliar.className = "button";
-//         btnAmpliar.onclick = () => mostrarDetallesExposicion(comentario.exposicion);
-//         cellMasDatos.appendChild(btnAmpliar);
-        
-//         // Nombre
-//         const cellNombre = row.insertCell();
-//         cellNombre.textContent = comentario.nombreVisitante;
-//         cellNombre.className = "borderRight";
-        
-//         // Comentario
-//         const cellComentario = row.insertCell();
-//         cellComentario.textContent = comentario.comentario;
-//         cellComentario.className = "comentarios";
-        
-//         // Guiada
-//         const cellGuiada = row.insertCell();
-//         cellGuiada.textContent = comentario.guia ? "Sí" : "No";
-        
-//         // Calificación
-//         const cellCalificacion = row.insertCell();
-//         cellCalificacion.textContent = comentario.calificacion;
-//         cellCalificacion.className = "borderRight";
-//     });
-// }
-
-// // Función para mostrar detalles de una exposición
-// function mostrarDetallesExposicion(exposicion) {
-//     let detalles = `
-//         Título: ${exposicion.titulo}
-//         Fecha: ${new Date(exposicion.fecha).toLocaleDateString()}
-//         Descripción: ${exposicion.descripcion}
-        
-//         Artistas:
-//         ${exposicion.artistas.join('\n')}
-//     `;
-//     alert(detalles);
-// }
-
-// // Event Listeners
-// document.addEventListener("DOMContentLoaded", function() {
-//     // Botón de agregar comentario
-//     document.getElementById("botonAgregarComentario").addEventListener("click", agregarComentario);
-    
-//     // Cambio en el filtro de exposiciones
-//     document.getElementById("exposicionFiltro").addEventListener("change", actualizarTablaComentarios);
-    
-//     // Botón de ordenar por calificación
-//     const btnOrdenar = document.querySelector("#sectionInfo table th:last-child button");
-//     btnOrdenar.addEventListener("click", function() {
-//         ordenAscendente = !ordenAscendente;
-//         this.textContent = ordenAscendente ? "Calificación creciente" : "Calificación decreciente";
-//         actualizarTablaComentarios();
-//     });
-// });
-
-
-
