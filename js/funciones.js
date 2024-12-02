@@ -2,7 +2,7 @@
 
 let sistema = new Sistema(); // Creamos la clase sistema antes que nada
 
-window.addEventListener('load', inicio);
+window.addEventListener('load', inicio); 
 
 function inicio() {
     // Obtenemos el boton cambiar color y aplicamos la fucnion
@@ -84,11 +84,12 @@ function moverArtistaDerecha(){
     // Obtiene los artistas seleccionados en el primer select y lo convierte en un array
     let opcionesSeleccionadas = Array.from(listaArtistas1.selectedOptions);
 
+    // (We could do the same with a for of loop)
+
     // Mueve CADA UNA opción seleccionada del primer select al segundo select
     opcionesSeleccionadas.forEach(opcion => {
         listaArtistas2.appendChild(opcion);
     });
-
 }
 
 function moverArtistaIzquierda(){
@@ -99,6 +100,8 @@ function moverArtistaIzquierda(){
 
     // Obtiene los artistas seleccionados en el segundo select y los convierte en un array
     let opcionesSeleccionadas = Array.from(listaArtistas2.selectedOptions);
+
+    // (We could do the same with a for of loop)
 
     // Mueve CADA UNA de las opciones seleccionadas del segundo select al primer select
     opcionesSeleccionadas.forEach(opcion => {
@@ -121,6 +124,21 @@ function actualizarListasArtistas() {
         if (a.nombre > b.nombre) return 1; // Coloca -> b antes que a
         return 0;
     });
+
+     // Bubble Sort implementation to sort the artists alphabetically
+    //  let artistas = sistema.artistas; // Assuming sistema.artistas is an array of objects with a 'nombre' property
+    //  let n = artistas.length;
+ 
+    //  for (let i = 0; i < artistas.length - 1; i++) {
+    //      for (let j = 0; j < artistas.length - 1 - i; j++) {
+    //          if (artistas[j].nombre > artistas[j + 1].nombre) {
+    //              // Swap
+    //              let temp = artistas[j];
+    //              artistas[j] = artistas[j + 1];
+    //              artistas[j + 1] = temp;
+    //          }
+    //      }
+    //  }
 
     // Va creando las opciones ordenadas y las mete en el select 
     for (let i = 0; i < sistema.artistas.length; i++) {
@@ -275,7 +293,7 @@ function actualizarInformacionGeneral() {
 
         for (let i = 0 ; i < exposicionesSinComentarios.length; i++) {
             let li = document.createElement('li');
-            let [yyyy, mm, dd] = (exposicionesSinComentarios[i].fecha).split('-'); // Dividir la fecha en partes y asignarlo al array. Formato default es "YYYY-MM-DD"
+            let [yyyy, mm, dd] = (exposicionesSinComentarios[i].fecha).split('-'); // Dividir la fecha en partes y asignarlo al array. Formato default es "YYYY-MM-DD" (desestrucrurar)
             let fechaFormato = `${dd}/${mm}/${yyyy}`; // Cambiar el formato de la fecha.
             li.textContent = `${exposicionesSinComentarios[i].titulo} ${fechaFormato}`;
             listaSinComentarios.appendChild(li);
@@ -393,7 +411,7 @@ function actualizarTablaComentarios(visitas = sistema.visitas) { // Por defecto 
 
         // Columna: Guiada
         let celdaGuiada = fila.insertCell();
-        celdaGuiada.textContent = visita.guiada ? 'SI' : 'NO';
+        celdaGuiada.textContent = visita.guiada ? 'SI' : 'NO'; // Si es guiada, muestra 'SI', sino, 'NO'
 
         // Columna: Calificación
         let celdaCalificacion = fila.insertCell();
